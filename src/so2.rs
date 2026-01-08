@@ -1,4 +1,4 @@
-use nalgebra::{Matrix2, Vector2};
+use nalgebra::{Matrix2, Vector2, UnitComplex};
 use std::{
     fmt::Debug,
     ops::{Mul, Not},
@@ -29,6 +29,14 @@ impl SO2 {
 
     pub fn get_matrix(&self) -> Matrix2<f64> {
         self.m
+    }
+
+    pub fn angle(&self) -> f64 {
+        self.m[(1, 0)].atan2(self.m[(0, 0)])
+    }
+
+    pub fn to_unit_complex(&self) -> UnitComplex<f64> {
+        UnitComplex::new(self.angle())
     }
 }
 
